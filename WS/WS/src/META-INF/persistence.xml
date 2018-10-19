@@ -5,6 +5,65 @@
   <persistence-unit name="WS">
     <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
     <jta-data-source>java:/app/jdbc/jdbc/GRUPO06DS</jta-data-source>
+    <class>ws.Bitacoraerror</class>
+    <class>ws.Bitacoraerror2</class>
+    <class>ws.Bitacoraerrorro</class>
+    <class>ws.Bitacoralineasolicitud</class>
+    <class>ws.Bitacoralineasolicitudro</class>
+    <class>ws.Bitacorasolicitud</class>
+    <class>ws.Bitacorasolicitudro</class>
+    <class>ws.Catalogoprv</class>
+    <class>ws.Catalogoprvro</class>
+    <class>ws.Catalogoprvsys</class>
+    <class>ws.Catalogoprvsysro</class>
+    <class>ws.Catalogosys</class>
+    <class>ws.Catalogosysro</class>
+    <class>ws.Cliente</class>
+    <class>ws.Clientero</class>
+    <class>ws.Conjuntos</class>
+    <class>ws.Conversion</class>
+    <class>ws.Conversionro</class>
+    <class>ws.ConversionView</class>
+    <class>ws.Estilo</class>
+    <class>ws.Estiloro</class>
+    <class>ws.EstiloView</class>
+    <class>ws.Faltantes</class>
+    <class>ws.Faltantesro</class>
+    <class>ws.Lineaordencompra</class>
+    <class>ws.Lineaordencompraro</class>
+    <class>ws.Lineasolicitud</class>
+    <class>ws.Lineasolicitudro</class>
+    <class>ws.MateriaprimaprvsysView</class>
+    <class>ws.MateriaprimaprvView</class>
+    <class>ws.MateriaprimasysView</class>
+    <class>ws.Ordencompra</class>
+    <class>ws.Ordencompraro</class>
+    <class>ws.Ordenproduccion</class>
+    <class>ws.Ordenproduccionro</class>
+    <class>ws.Pais</class>
+    <class>ws.Prenda</class>
+    <class>ws.Prendaro</class>
+    <class>ws.PrendaView</class>
+    <class>ws.Proveedor</class>
+    <class>ws.ProveedorView</class>
+    <class>ws.Prvextranjero</class>
+    <class>ws.Prvextranjeroro</class>
+    <class>ws.Prvnacional</class>
+    <class>ws.Prvnacionalro</class>
+    <class>ws.Receta</class>
+    <class>ws.Recetaro</class>
+    <class>ws.RecetaView</class>
+    <class>ws.Solicitud</class>
+    <class>ws.Solicitudro</class>
+    <class>ws.Talla</class>
+    <class>ws.Tallaro</class>
+    <class>ws.TallaView</class>
+    <class>ws.Unidadmedida</class>
+    <class>ws.Unidadmedidaro</class>
+    <class>ws.UnidadmedidaView</class>
+    <class>ws.Usuario</class>
+    <class>ws.Usuarioro</class>
+    <class>ws.UsuarioView</class>
     <properties>
       <property name="eclipselink.target-server" value="WebLogic_10"/>
       <property name="javax.persistence.jtaDataSource" value="java:/app/jdbc/jdbc/GRUPO06DS"/>

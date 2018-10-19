@@ -1,0 +1,170 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<view xmlns="http://xmlns.oracle.com/jdeveloper/1211/offlinedb">
+  <name>MATERIAPRIMAPRVSYS_VIEW</name>
+  <SQLQuery>
+    <queryString>select 
+	mpps.idmateriaprimaprv,
+	mpps.IDMATERIAPRIMASYS,
+	mpps.idproveedor,
+	ref(prv) MATERIAPRIMAPRV ,
+	null
+
+From CATALOGOPRVSYS mpps, materiaprimaprv_View prv
+where mpps.idmateriaprimaprv = prv.idmateriaprimaprv</queryString>
+  </SQLQuery>
+  <columns>
+    <column>
+      <name>IDMATERIAPRIMAPRV</name>
+      <dataTypeUsage>
+        <attributeValues>
+          <entry>
+            <key>precision</key>
+            <value class="java.lang.String">8</value>
+          </entry>
+          <entry>
+            <key>scale</key>
+            <value class="java.lang.Long">0</value>
+          </entry>
+        </attributeValues>
+        <dataTypeID class="oracle.javatools.db.datatypes.DataTypeID">
+          <typeName>NUMBER</typeName>
+        </dataTypeID>
+      </dataTypeUsage>
+      <notNull>false</notNull>
+      <properties>
+        <entry>
+          <key>OfflineDBConstants.IMPORT_SOURCE_ID</key>
+          <value class="oracle.javatools.db.ReferenceID">
+            <name>IDMATERIAPRIMAPRV</name>
+            <parent class="oracle.javatools.db.ReferenceID">
+              <name>MATERIAPRIMAPRVSYS_VIEW</name>
+              <identifier class="java.math.BigDecimal">92501</identifier>
+              <schemaName>GRUPO06</schemaName>
+              <type>VIEW</type>
+            </parent>
+            <type>COLUMN</type>
+          </value>
+        </entry>
+      </properties>
+    </column>
+    <column>
+      <name>IDMATERIAPRIMASYS</name>
+      <dataTypeUsage>
+        <attributeValues>
+          <entry>
+            <key>precision</key>
+            <value class="java.lang.String">8</value>
+          </entry>
+          <entry>
+            <key>scale</key>
+            <value class="java.lang.Long">0</value>
+          </entry>
+        </attributeValues>
+        <dataTypeID class="oracle.javatools.db.datatypes.DataTypeID">
+          <typeName>NUMBER</typeName>
+        </dataTypeID>
+      </dataTypeUsage>
+      <notNull>false</notNull>
+      <properties>
+        <entry>
+          <key>OfflineDBConstants.IMPORT_SOURCE_ID</key>
+          <value class="oracle.javatools.db.ReferenceID">
+            <name>IDMATERIAPRIMASYS</name>
+            <parent class="oracle.javatools.db.ReferenceID">
+              <name>MATERIAPRIMAPRVSYS_VIEW</name>
+              <identifier class="java.math.BigDecimal">92501</identifier>
+              <schemaName>GRUPO06</schemaName>
+              <type>VIEW</type>
+            </parent>
+            <type>COLUMN</type>
+          </value>
+        </entry>
+      </properties>
+    </column>
+    <column>
+      <name>IDPROVEEDOR</name>
+      <dataTypeUsage>
+        <attributeValues>
+          <entry>
+            <key>precision</key>
+            <value class="java.lang.String">6</value>
+          </entry>
+          <entry>
+            <key>scale</key>
+            <value class="java.lang.Long">0</value>
+          </entry>
+        </attributeValues>
+        <dataTypeID class="oracle.javatools.db.datatypes.DataTypeID">
+          <typeName>NUMBER</typeName>
+        </dataTypeID>
+      </dataTypeUsage>
+      <notNull>false</notNull>
+      <properties>
+        <entry>
+          <key>OfflineDBConstants.IMPORT_SOURCE_ID</key>
+          <value class="oracle.javatools.db.ReferenceID">
+            <name>IDPROVEEDOR</name>
+            <parent class="oracle.javatools.db.ReferenceID">
+              <name>MATERIAPRIMAPRVSYS_VIEW</name>
+              <identifier class="java.math.BigDecimal">92501</identifier>
+              <schemaName>GRUPO06</schemaName>
+              <type>VIEW</type>
+            </parent>
+            <type>COLUMN</type>
+          </value>
+        </entry>
+      </properties>
+    </column>
+    <column>
+      <name>MATERIAPRIMAPRV</name>
+      <dataTypeUsage>
+        <attributeValues>
+          <entry>
+            <key>ref</key>
+            <value class="java.lang.Boolean">true</value>
+          </entry>
+        </attributeValues>
+        <dataTypeID class="oracle.javatools.db.ReferenceID">
+          <name>MATERIAPRIMAPRV_TYPE</name>
+          <schemaName>GRUPO06</schemaName>
+          <type>DATATYPE</type>
+        </dataTypeID>
+      </dataTypeUsage>
+      <notNull>false</notNull>
+      <properties>
+        <entry>
+          <key>OfflineDBConstants.IMPORT_SOURCE_ID</key>
+          <value class="oracle.javatools.db.ReferenceID">
+            <name>MATERIAPRIMAPRV</name>
+            <parent class="oracle.javatools.db.ReferenceID">
+              <name>MATERIAPRIMAPRVSYS_VIEW</name>
+              <identifier class="java.math.BigDecimal">92501</identifier>
+              <schemaName>GRUPO06</schemaName>
+              <type>VIEW</type>
+            </parent>
+            <type>COLUMN</type>
+          </value>
+        </entry>
+      </properties>
+    </column>
+    <column>
+      <name>NULL</name>
+      <notNull>false</notNull>
+    </column>
+  </columns>
+  <forceOnCreate>false</forceOnCreate>
+  <properties>
+    <entry>
+      <key>OfflineDBConstants.IMPORT_SOURCE_ID</key>
+      <value class="oracle.javatools.db.ReferenceID">
+        <name>MATERIAPRIMAPRVSYS_VIEW</name>
+        <identifier class="java.math.BigDecimal">92501</identifier>
+        <schemaName>GRUPO06</schemaName>
+        <type>VIEW</type>
+      </value>
+    </entry>
+  </properties>
+  <schema>
+    <name>GRUPO06</name>
+  </schema>
+</view>

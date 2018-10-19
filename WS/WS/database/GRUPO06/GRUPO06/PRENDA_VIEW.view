@@ -1,0 +1,209 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<view xmlns="http://xmlns.oracle.com/jdeveloper/1211/offlinedb">
+  <name>PRENDA_VIEW</name>
+  <SQLQuery>
+    <queryString>select p.idPrenda, p.descripcion,
+p.costoUnitario, p.imagen,
+p.video, REF(e)
+ ESTILO From Prenda p,Estilo_View e where e.idEstilo = p.idEstilo</queryString>
+  </SQLQuery>
+  <columns>
+    <column>
+      <name>IDPRENDA</name>
+      <dataTypeUsage>
+        <attributeValues>
+          <entry>
+            <key>precision</key>
+            <value class="java.lang.String">8</value>
+          </entry>
+          <entry>
+            <key>scale</key>
+            <value class="java.lang.Long">0</value>
+          </entry>
+        </attributeValues>
+        <dataTypeID class="oracle.javatools.db.datatypes.DataTypeID">
+          <typeName>NUMBER</typeName>
+        </dataTypeID>
+      </dataTypeUsage>
+      <notNull>false</notNull>
+      <properties>
+        <entry>
+          <key>OfflineDBConstants.IMPORT_SOURCE_ID</key>
+          <value class="oracle.javatools.db.ReferenceID">
+            <name>IDPRENDA</name>
+            <parent class="oracle.javatools.db.ReferenceID">
+              <name>PRENDA_VIEW</name>
+              <identifier class="java.math.BigDecimal">92369</identifier>
+              <schemaName>GRUPO06</schemaName>
+              <type>VIEW</type>
+            </parent>
+            <type>COLUMN</type>
+          </value>
+        </entry>
+      </properties>
+    </column>
+    <column>
+      <name>DESCRIPCION</name>
+      <dataTypeUsage>
+        <attributeValues>
+          <entry>
+            <key>size</key>
+            <value class="java.lang.Long">120</value>
+          </entry>
+          <entry>
+            <key>unit</key>
+            <value class="java.lang.String">BYTE</value>
+          </entry>
+        </attributeValues>
+        <dataTypeID class="oracle.javatools.db.datatypes.DataTypeID">
+          <typeName>VARCHAR2</typeName>
+        </dataTypeID>
+      </dataTypeUsage>
+      <notNull>false</notNull>
+      <properties>
+        <entry>
+          <key>OfflineDBConstants.IMPORT_SOURCE_ID</key>
+          <value class="oracle.javatools.db.ReferenceID">
+            <name>DESCRIPCION</name>
+            <parent class="oracle.javatools.db.ReferenceID">
+              <name>PRENDA_VIEW</name>
+              <identifier class="java.math.BigDecimal">92369</identifier>
+              <schemaName>GRUPO06</schemaName>
+              <type>VIEW</type>
+            </parent>
+            <type>COLUMN</type>
+          </value>
+        </entry>
+      </properties>
+    </column>
+    <column>
+      <name>COSTOUNITARIO</name>
+      <dataTypeUsage>
+        <attributeValues>
+          <entry>
+            <key>precision</key>
+            <value class="java.lang.String">6</value>
+          </entry>
+          <entry>
+            <key>scale</key>
+            <value class="java.lang.Long">0</value>
+          </entry>
+        </attributeValues>
+        <dataTypeID class="oracle.javatools.db.datatypes.DataTypeID">
+          <typeName>NUMBER</typeName>
+        </dataTypeID>
+      </dataTypeUsage>
+      <notNull>false</notNull>
+      <properties>
+        <entry>
+          <key>OfflineDBConstants.IMPORT_SOURCE_ID</key>
+          <value class="oracle.javatools.db.ReferenceID">
+            <name>COSTOUNITARIO</name>
+            <parent class="oracle.javatools.db.ReferenceID">
+              <name>PRENDA_VIEW</name>
+              <identifier class="java.math.BigDecimal">92369</identifier>
+              <schemaName>GRUPO06</schemaName>
+              <type>VIEW</type>
+            </parent>
+            <type>COLUMN</type>
+          </value>
+        </entry>
+      </properties>
+    </column>
+    <column>
+      <name>IMAGEN</name>
+      <dataTypeUsage>
+        <dataTypeID class="oracle.javatools.db.datatypes.DataTypeID">
+          <typeName>BLOB</typeName>
+        </dataTypeID>
+      </dataTypeUsage>
+      <notNull>false</notNull>
+      <properties>
+        <entry>
+          <key>OfflineDBConstants.IMPORT_SOURCE_ID</key>
+          <value class="oracle.javatools.db.ReferenceID">
+            <name>IMAGEN</name>
+            <parent class="oracle.javatools.db.ReferenceID">
+              <name>PRENDA_VIEW</name>
+              <identifier class="java.math.BigDecimal">92369</identifier>
+              <schemaName>GRUPO06</schemaName>
+              <type>VIEW</type>
+            </parent>
+            <type>COLUMN</type>
+          </value>
+        </entry>
+      </properties>
+    </column>
+    <column>
+      <name>VIDEO</name>
+      <dataTypeUsage>
+        <dataTypeID class="oracle.javatools.db.datatypes.DataTypeID">
+          <typeName>BLOB</typeName>
+        </dataTypeID>
+      </dataTypeUsage>
+      <notNull>false</notNull>
+      <properties>
+        <entry>
+          <key>OfflineDBConstants.IMPORT_SOURCE_ID</key>
+          <value class="oracle.javatools.db.ReferenceID">
+            <name>VIDEO</name>
+            <parent class="oracle.javatools.db.ReferenceID">
+              <name>PRENDA_VIEW</name>
+              <identifier class="java.math.BigDecimal">92369</identifier>
+              <schemaName>GRUPO06</schemaName>
+              <type>VIEW</type>
+            </parent>
+            <type>COLUMN</type>
+          </value>
+        </entry>
+      </properties>
+    </column>
+    <column>
+      <name>ESTILO</name>
+      <dataTypeUsage>
+        <attributeValues>
+          <entry>
+            <key>ref</key>
+            <value class="java.lang.Boolean">true</value>
+          </entry>
+        </attributeValues>
+        <dataTypeID class="oracle.javatools.db.ReferenceID">
+          <name>ESTILO_TYPE</name>
+          <schemaName>GRUPO06</schemaName>
+          <type>DATATYPE</type>
+        </dataTypeID>
+      </dataTypeUsage>
+      <notNull>false</notNull>
+      <properties>
+        <entry>
+          <key>OfflineDBConstants.IMPORT_SOURCE_ID</key>
+          <value class="oracle.javatools.db.ReferenceID">
+            <name>ESTILO</name>
+            <parent class="oracle.javatools.db.ReferenceID">
+              <name>PRENDA_VIEW</name>
+              <identifier class="java.math.BigDecimal">92369</identifier>
+              <schemaName>GRUPO06</schemaName>
+              <type>VIEW</type>
+            </parent>
+            <type>COLUMN</type>
+          </value>
+        </entry>
+      </properties>
+    </column>
+  </columns>
+  <forceOnCreate>false</forceOnCreate>
+  <properties>
+    <entry>
+      <key>OfflineDBConstants.IMPORT_SOURCE_ID</key>
+      <value class="oracle.javatools.db.ReferenceID">
+        <name>PRENDA_VIEW</name>
+        <identifier class="java.math.BigDecimal">92369</identifier>
+        <schemaName>GRUPO06</schemaName>
+        <type>VIEW</type>
+      </value>
+    </entry>
+  </properties>
+  <schema>
+    <name>GRUPO06</name>
+  </schema>
+</view>
