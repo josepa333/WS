@@ -29,6 +29,7 @@
    <list n="listOfChildren">
       <hash><url n="URL" path="Project1/Project1.jpr"/></hash>
       <hash><url n="URL" path="Project2/Project2.jpr"/></hash>
+      <hash><url n="URL" path="Project3/Project3.jpr"/></hash>
       <hash><url n="URL" path="WebService/WebService.jpr"/></hash>
    </list>
 </jws:workspace>

@@ -11,6 +11,7 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collection;
 import javax.annotation.Resource;
 import javax.ejb.SessionContext;
@@ -23,9 +24,10 @@ import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
 
+
 @Stateless(name = "SessionEJB1", mappedName = "demo_0002-WebService-SessionEJB1")
 @TransactionManagement(TransactionManagementType.BEAN)
-@WebService
+@WebService(wsdlLocation = "/META-INF/SessionEJB1BeanService.wsdl")
 public class SessionEJB1Bean implements SessionEJB1, SessionEJB1Local {
     @Resource
     SessionContext sessionContext;
@@ -113,6 +115,10 @@ public class SessionEJB1Bean implements SessionEJB1, SessionEJB1Local {
                  return solicitudes;
              }
              catch (SQLException e) {
+                 java.sql.Date sqlDate = new java.sql.Date(Calendar.getInstance().getTime().getTime());
+                Solicitudro1 sol = new Solicitudro1( sqlDate,sqlDate, null,3L ); 
+                sol.setError(e.getMessage());
+                solicitudes.add(sol);
              return solicitudes;
              }
          }
@@ -158,6 +164,32 @@ public class SessionEJB1Bean implements SessionEJB1, SessionEJB1Local {
                 return false;
              }
          }
+        
+    @WebMethod
+         public Collection<LineaSolicitud> getLineaSolicitudes() {
+              Collection<LineaSolicitud> solicitudes;
+              solicitudes = new ArrayList<LineaSolicitud>();
+              try {
+                  ResultSet rset;
+                  rset = consultaLineas.executeQuery();
+                  while (rset.next()){
+                      solicitudes.add(new LineaSolicitud (rset.getInt("cantidad"),
+                                                          rset.getInt("idlineasolicitud"),
+                                                          rset.getLong("idordenproduccion"),
+                                                          rset.getInt("idprenda"),
+                                                          rset.getLong("IDSOLICITUD"),
+                                                          rset.getInt("idtalla")
+                                                         )
+                      );
+                  };
+                  rset.close();
+                  return solicitudes;
+              }
+              catch (SQLException e) {
+              return solicitudes;
+              }
+          }
+         
         
     public void setSessionContext( SessionContext ctx){
            this.sessionContext = ctx;

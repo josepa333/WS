@@ -5,17 +5,17 @@
       <xsd:import namespace="http://webservice/" schemaLocation="SessionEJB1BeanService_schema1.xsd"/>
     </xsd:schema>
   </types>
-  <message name="closeConexion">
-    <part name="parameters" element="tns:closeConexion"/>
-  </message>
-  <message name="closeConexionResponse">
-    <part name="parameters" element="tns:closeConexionResponse"/>
-  </message>
   <message name="getConection">
     <part name="parameters" element="tns:getConection"/>
   </message>
   <message name="getConectionResponse">
     <part name="parameters" element="tns:getConectionResponse"/>
+  </message>
+  <message name="closeConexion">
+    <part name="parameters" element="tns:closeConexion"/>
+  </message>
+  <message name="closeConexionResponse">
+    <part name="parameters" element="tns:closeConexionResponse"/>
   </message>
   <message name="getSolicitudes">
     <part name="parameters" element="tns:getSolicitudes"/>
@@ -35,11 +35,23 @@
   <message name="borraSolicitudResponse">
     <part name="parameters" element="tns:borraSolicitudResponse"/>
   </message>
+  <message name="commit">
+    <part name="parameters" element="tns:commit"/>
+  </message>
+  <message name="commitResponse">
+    <part name="parameters" element="tns:commitResponse"/>
+  </message>
   <message name="actualizaSolicitud">
     <part name="parameters" element="tns:actualizaSolicitud"/>
   </message>
   <message name="actualizaSolicitudResponse">
     <part name="parameters" element="tns:actualizaSolicitudResponse"/>
+  </message>
+  <message name="getLineaSolicitudes">
+    <part name="parameters" element="tns:getLineaSolicitudes"/>
+  </message>
+  <message name="getLineaSolicitudesResponse">
+    <part name="parameters" element="tns:getLineaSolicitudesResponse"/>
   </message>
   <message name="setSessionContext">
     <part name="parameters" element="tns:setSessionContext"/>
@@ -47,20 +59,14 @@
   <message name="setSessionContextResponse">
     <part name="parameters" element="tns:setSessionContextResponse"/>
   </message>
-  <message name="commit">
-    <part name="parameters" element="tns:commit"/>
-  </message>
-  <message name="commitResponse">
-    <part name="parameters" element="tns:commitResponse"/>
-  </message>
   <portType name="SessionEJB1Bean">
-    <operation name="closeConexion">
-      <input wsam:Action="http://webservice/SessionEJB1Bean/closeConexionRequest" message="tns:closeConexion"/>
-      <output wsam:Action="http://webservice/SessionEJB1Bean/closeConexionResponse" message="tns:closeConexionResponse"/>
-    </operation>
     <operation name="getConection">
       <input wsam:Action="http://webservice/SessionEJB1Bean/getConectionRequest" message="tns:getConection"/>
       <output wsam:Action="http://webservice/SessionEJB1Bean/getConectionResponse" message="tns:getConectionResponse"/>
+    </operation>
+    <operation name="closeConexion">
+      <input wsam:Action="http://webservice/SessionEJB1Bean/closeConexionRequest" message="tns:closeConexion"/>
+      <output wsam:Action="http://webservice/SessionEJB1Bean/closeConexionResponse" message="tns:closeConexionResponse"/>
     </operation>
     <operation name="getSolicitudes">
       <input wsam:Action="http://webservice/SessionEJB1Bean/getSolicitudesRequest" message="tns:getSolicitudes"/>
@@ -74,22 +80,26 @@
       <input wsam:Action="http://webservice/SessionEJB1Bean/borraSolicitudRequest" message="tns:borraSolicitud"/>
       <output wsam:Action="http://webservice/SessionEJB1Bean/borraSolicitudResponse" message="tns:borraSolicitudResponse"/>
     </operation>
+    <operation name="commit">
+      <input wsam:Action="http://webservice/SessionEJB1Bean/commitRequest" message="tns:commit"/>
+      <output wsam:Action="http://webservice/SessionEJB1Bean/commitResponse" message="tns:commitResponse"/>
+    </operation>
     <operation name="actualizaSolicitud">
       <input wsam:Action="http://webservice/SessionEJB1Bean/actualizaSolicitudRequest" message="tns:actualizaSolicitud"/>
       <output wsam:Action="http://webservice/SessionEJB1Bean/actualizaSolicitudResponse" message="tns:actualizaSolicitudResponse"/>
+    </operation>
+    <operation name="getLineaSolicitudes">
+      <input wsam:Action="http://webservice/SessionEJB1Bean/getLineaSolicitudesRequest" message="tns:getLineaSolicitudes"/>
+      <output wsam:Action="http://webservice/SessionEJB1Bean/getLineaSolicitudesResponse" message="tns:getLineaSolicitudesResponse"/>
     </operation>
     <operation name="setSessionContext">
       <input wsam:Action="http://webservice/SessionEJB1Bean/setSessionContextRequest" message="tns:setSessionContext"/>
       <output wsam:Action="http://webservice/SessionEJB1Bean/setSessionContextResponse" message="tns:setSessionContextResponse"/>
     </operation>
-    <operation name="commit">
-      <input wsam:Action="http://webservice/SessionEJB1Bean/commitRequest" message="tns:commit"/>
-      <output wsam:Action="http://webservice/SessionEJB1Bean/commitResponse" message="tns:commitResponse"/>
-    </operation>
   </portType>
   <binding name="SessionEJB1BeanPortBinding" type="tns:SessionEJB1Bean">
     <soap:binding transport="http://schemas.xmlsoap.org/soap/http" style="document"/>
-    <operation name="closeConexion">
+    <operation name="getConection">
       <soap:operation soapAction=""/>
       <input>
         <soap:body use="literal"/>
@@ -98,7 +108,7 @@
         <soap:body use="literal"/>
       </output>
     </operation>
-    <operation name="getConection">
+    <operation name="closeConexion">
       <soap:operation soapAction=""/>
       <input>
         <soap:body use="literal"/>
@@ -134,6 +144,15 @@
         <soap:body use="literal"/>
       </output>
     </operation>
+    <operation name="commit">
+      <soap:operation soapAction=""/>
+      <input>
+        <soap:body use="literal"/>
+      </input>
+      <output>
+        <soap:body use="literal"/>
+      </output>
+    </operation>
     <operation name="actualizaSolicitud">
       <soap:operation soapAction=""/>
       <input>
@@ -143,7 +162,7 @@
         <soap:body use="literal"/>
       </output>
     </operation>
-    <operation name="setSessionContext">
+    <operation name="getLineaSolicitudes">
       <soap:operation soapAction=""/>
       <input>
         <soap:body use="literal"/>
@@ -152,7 +171,7 @@
         <soap:body use="literal"/>
       </output>
     </operation>
-    <operation name="commit">
+    <operation name="setSessionContext">
       <soap:operation soapAction=""/>
       <input>
         <soap:body use="literal"/>

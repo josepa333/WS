@@ -25,8 +25,11 @@ public class Solicitudro1 implements Serializable {
         @Id
         @Column(nullable = false)
         private Long idsolicitud;
+        @Column(nullable = true)
+        private String error;
         
-    public Solicitudro1() {
+        
+        public Solicitudro1() {
         }
 
         public Solicitudro1(Date fchmaxima, Date fchsolicitud, java.sql.Ref idcliente, Long idsolicitud) {
@@ -68,6 +71,15 @@ public class Solicitudro1 implements Serializable {
         public void setIdsolicitud(Long idsolicitud) {
             this.idsolicitud = idsolicitud;
         }
+        
+        public String gerError() {
+            return error;
+        }
+    
+        public void setError(String error) {
+            this.error = error;
+        }
+        
 
         @Override
         public String toString() {

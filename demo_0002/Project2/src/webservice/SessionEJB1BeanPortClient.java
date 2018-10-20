@@ -14,6 +14,5 @@ public class SessionEJB1BeanPortClient {
         System.out.println(i);
         Collection<Solicitudro1> sol =  sessionEJB1Bean.getSolicitudes();
         sessionEJB1Bean.closeConexion(i);
-
     }
 }
