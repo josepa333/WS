@@ -24,10 +24,12 @@ import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
 
+import oracle.sql.ARRAY;
+
 
 @Stateless(name = "SessionEJB1", mappedName = "demo_0002-WebService-SessionEJB1")
 @TransactionManagement(TransactionManagementType.BEAN)
-@WebService(wsdlLocation = "/META-INF/SessionEJB1BeanService.wsdl")
+@WebService
 public class SessionEJB1Bean implements SessionEJB1, SessionEJB1Local {
     @Resource
     SessionContext sessionContext;
@@ -55,11 +57,12 @@ public class SessionEJB1Bean implements SessionEJB1, SessionEJB1Local {
                  conexion.setAutoCommit(false);
                  conexion.setTransactionIsolation(Connection.TRANSACTION_REPEATABLE_READ);
                  listaConexiones.add(conexion);
-                 inserta = conexion.prepareStatement("insert into solicitudro values(?,?,?,?)");
-                 consulta = conexion.prepareStatement("Select * From Solicitudro");
-                 actualiza = conexion.prepareStatement("Update Solicitudro set fchmaxima = ?, fchsolicitud = ?,idcliente = ? Where idsolicitud = ?");
+                 inserta = conexion.prepareStatement("execute crearSolicitud(?,?,?,?)");
+                 consulta = conexion.prepareStatement("select sol.IDSOLICITUD, sol.FCHSOLICITUD, sol.FCHMAXIMA, deref(sol.CLIENTE).idCliente clID, sol.LINEASSOLICITUD from solicitudro sol");
+                 actualiza = conexion.prepareStatement("Update Solicitudro set fchmaxima = ?, fchsolicitud = ? Where idsolicitud = ?");
                  borra = conexion.prepareStatement("Delete From Solicitudro Where idsolicitud = ?");
-                 
+                
+                
                  //Lineas
                  insertaLineas = conexion.prepareStatement("Insert into Lineasolicitud Values(?,?,?,?,?,?)");
                  consultaLineas = conexion.prepareStatement("Select * From Lineasolicitud");
@@ -106,17 +109,18 @@ public class SessionEJB1Bean implements SessionEJB1, SessionEJB1Local {
                  ResultSet rset;
                  rset = consulta.executeQuery();
                  while (rset.next()){
-                     solicitudes.add(new Solicitudro1 (rset.getDate("fchmaxima"),rset.getDate("fchsolicitud"), rset.getRef("cliente"),
-                     rset.getLong("idsolicitud")
+                     solicitudes.add(new Solicitudro1 (rset.getDate("fchmaxima"),rset.getDate("fchsolicitud"), rset.getInt("clID"),
+                     rset.getLong("idsolicitud"),(ARRAY) rset.getObject("LINEASSOLICITUD")
                     )
                      );
                  };
                  rset.close();
                  return solicitudes;
              }
+             
              catch (SQLException e) {
                  java.sql.Date sqlDate = new java.sql.Date(Calendar.getInstance().getTime().getTime());
-                Solicitudro1 sol = new Solicitudro1( sqlDate,sqlDate, null,3L ); 
+                Solicitudro1 sol = new Solicitudro1( sqlDate,sqlDate, 2,3L, null ); 
                 sol.setError(e.getMessage());
                 solicitudes.add(sol);
              return solicitudes;
@@ -129,7 +133,7 @@ public class SessionEJB1Bean implements SessionEJB1, SessionEJB1Local {
                  inserta.setLong(1,solicitud.getIdsolicitud());
                  inserta.setDate(2, new java.sql.Date(solicitud.getFchsolicitud().getTime()));
                  inserta.setDate(3, new java.sql.Date(solicitud.getFchmaxima().getTime()));
-                 inserta.setRef(4,solicitud.getIdcliente() );
+                 inserta.setInt (4,solicitud.getIdcliente() );
                  inserta.executeUpdate();
                  return true;
              }
@@ -143,8 +147,7 @@ public class SessionEJB1Bean implements SessionEJB1, SessionEJB1Local {
             try {
                  actualiza.setDate(1, new java.sql.Date(solicitud.getFchmaxima().getTime()));
                  actualiza.setDate(2, new java.sql.Date(solicitud.getFchsolicitud().getTime()));
-                 actualiza.setRef(3, solicitud.getIdcliente() );
-                 actualiza.setLong(4, solicitud.getIdsolicitud());
+                 actualiza.setLong(3, solicitud.getIdsolicitud());
                  actualiza.executeUpdate();
                  return true;
              }

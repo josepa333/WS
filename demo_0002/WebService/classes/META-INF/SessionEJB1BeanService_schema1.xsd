@@ -78,8 +78,9 @@
     <xsd:sequence>
       <xsd:element name="fchmaxima" type="xsd:dateTime" minOccurs="0"/>
       <xsd:element name="fchsolicitud" type="xsd:dateTime" minOccurs="0"/>
-      <xsd:element name="idcliente" type="xsd:anySimpleType" minOccurs="0"/>
+      <xsd:element name="idcliente" type="xsd:int"/>
       <xsd:element name="idsolicitud" type="xsd:long" minOccurs="0"/>
+      <xsd:element name="lineas" type="xsd:anySimpleType" minOccurs="0" maxOccurs="unbounded" nillable="true"/>
     </xsd:sequence>
   </xsd:complexType>
   <xsd:complexType name="lineaSolicitud">

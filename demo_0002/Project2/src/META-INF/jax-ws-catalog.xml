@@ -1,4 +1,0 @@
-<catalog xmlns="urn:oasis:names:tc:entity:xmlns:xml:catalog">
-  <system systemId="http://localhost:7101/demo_0002-WebService-webapp/SessionEJB1BeanService?WSDL#%7Bhttp%3A%2F%2Fwebservice%2F%7DSessionEJB1BeanService"
-          uri="../webservice/SessionEJB1BeanService.wsdl"/>
-</catalog>

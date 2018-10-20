@@ -10,6 +10,9 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import java.util.Date;
 import java.sql.Ref;
+import oracle.sql.ARRAY;
+
+import weblogic.jdbc.wrapper.Array;
 
 @Entity
 @NamedQueries({ @NamedQuery(name = "Solicitudro1.findAll", query = "select o from Solicitudro o") })
@@ -21,10 +24,12 @@ public class Solicitudro1 implements Serializable {
         @Temporal(TemporalType.DATE)
         private Date fchsolicitud;
         @Column(nullable = false)
-        private java.sql.Ref idcliente;
+        private int idcliente;
         @Id
         @Column(nullable = false)
         private Long idsolicitud;
+        @Column(nullable = true)
+        private ARRAY lineas;
         @Column(nullable = true)
         private String error;
         
@@ -32,11 +37,13 @@ public class Solicitudro1 implements Serializable {
         public Solicitudro1() {
         }
 
-        public Solicitudro1(Date fchmaxima, Date fchsolicitud, java.sql.Ref idcliente, Long idsolicitud) {
+        public Solicitudro1(Date fchmaxima, Date fchsolicitud, int idcliente, Long idsolicitud,
+                            ARRAY lineas) {
             this.fchmaxima = fchmaxima;
             this.fchsolicitud = fchsolicitud;
             this.idcliente = idcliente;
             this.idsolicitud = idsolicitud;
+            this.lineas = lineas;
         }
 
 
@@ -56,11 +63,11 @@ public class Solicitudro1 implements Serializable {
             this.fchsolicitud = fchsolicitud;
         }
 
-        public java.sql.Ref getIdcliente() {
+        public int getIdcliente() {
             return idcliente;
         }
 
-        public void setIdcliente(java.sql.Ref idcliente) {
+        public void setIdcliente(int idcliente) {
             this.idcliente = idcliente;
         }
 
@@ -80,7 +87,14 @@ public class Solicitudro1 implements Serializable {
             this.error = error;
         }
         
-
+        public ARRAY getLineas() {
+            return lineas;
+        }
+        
+        public void setLineas(ARRAY lineas) {
+            this.lineas = lineas;
+        }
+        
         @Override
         public String toString() {
             StringBuffer buffer = new StringBuffer();
