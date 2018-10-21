@@ -8,7 +8,7 @@ public class SessionEJB1BeanPortClient {
         SessionEJB1BeanService sessionEJB1BeanService = new SessionEJB1BeanService();
         SessionEJB1Bean sessionEJB1Bean = sessionEJB1BeanService.getSessionEJB1BeanPort();
         // Add your code to call the desired methods.
-        
+
 
     }
 }

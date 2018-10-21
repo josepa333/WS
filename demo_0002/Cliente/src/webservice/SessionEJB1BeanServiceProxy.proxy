@@ -28,10 +28,12 @@
       <url path="GetLineaSolicitudes.java"/>
       <url path="InsertaLineasSolicitud.java"/>
       <url path="BorraSolicitud.java"/>
+      <url path="ConsultaTodasLasLineasResponse.java"/>
       <url path="LineaSolicitud.java"/>
       <url path="SetSessionContext.java"/>
       <url path="ActualizaSolicitud.java"/>
       <url path="BorraLineasSolicitud.java"/>
+      <url path="ConsultaTodasLasLineas.java"/>
       <url path="ActualizaSolicitudResponse.java"/>
       <url path="SessionEJB1Bean.java"/>
    </list>
@@ -78,6 +80,10 @@
                   <hash n="PROPERTY_GROUPS"/>
                </hash>
                <hash n="commit">
+                  <value n="MODEL_CLASS" v="oracle.jdeveloper.webservices.model.proxy.ProxyOperation"/>
+                  <hash n="PROPERTY_GROUPS"/>
+               </hash>
+               <hash n="consultaTodasLasLineas">
                   <value n="MODEL_CLASS" v="oracle.jdeveloper.webservices.model.proxy.ProxyOperation"/>
                   <hash n="PROPERTY_GROUPS"/>
                </hash>
@@ -136,7 +142,7 @@
                      <hash n="PROPERTY_GROUPS"/>
                   </hash>
                   <hash>
-                     <value n="BOUND_OPERATION" v="int.getConection"/>
+                     <value n="BOUND_OPERATION" v="java.lang.String.borraSolicitud.webservice.Solicitudro1"/>
                      <value n="MODEL_CLASS" v="oracle.jdeveloper.webservices.model.SOAPOperationBinding"/>
                      <hash n="PROPERTY_GROUPS"/>
                   </hash>
@@ -156,7 +162,7 @@
                      <hash n="PROPERTY_GROUPS"/>
                   </hash>
                   <hash>
-                     <value n="BOUND_OPERATION" v="java.lang.String.borraSolicitud.webservice.Solicitudro1"/>
+                     <value n="BOUND_OPERATION" v="int.getConection"/>
                      <value n="MODEL_CLASS" v="oracle.jdeveloper.webservices.model.SOAPOperationBinding"/>
                      <hash n="PROPERTY_GROUPS"/>
                   </hash>
@@ -185,12 +191,17 @@
                      <value n="MODEL_CLASS" v="oracle.jdeveloper.webservices.model.SOAPOperationBinding"/>
                      <hash n="PROPERTY_GROUPS"/>
                   </hash>
+                  <hash>
+                     <value n="BOUND_OPERATION" v="int.consultaTodasLasLineas"/>
+                     <value n="MODEL_CLASS" v="oracle.jdeveloper.webservices.model.SOAPOperationBinding"/>
+                     <hash n="PROPERTY_GROUPS"/>
+                  </hash>
                </list>
                <hash n="PROPERTY_GROUPS"/>
             </hash>
          </list>
          <list n="BINDING_FILES"/>
-         <value n="GUID" v="973a2d4d-0166-1000-816a-ac1328067dfc"/>
+         <value n="GUID" v="97aaf148-0166-1000-83f2-ac13280ec67d"/>
          <value n="MODEL_CLASS" v="oracle.jdeveloper.webservices.model.proxy.WebServiceProxy$ProxyJavaWebService"/>
          <list n="PO_">
             <hash>
@@ -210,7 +221,7 @@
                      <hash n="PROPERTY_GROUPS"/>
                   </hash>
                   <hash>
-                     <value n="EXPOSED_BD_OPERATION" v="int.getConection"/>
+                     <value n="EXPOSED_BD_OPERATION" v="java.lang.String.borraSolicitud.webservice.Solicitudro1"/>
                      <value n="MODEL_CLASS" v="oracle.jdeveloper.webservices.model.PortOperation"/>
                      <hash n="PROPERTY_GROUPS"/>
                   </hash>
@@ -230,7 +241,7 @@
                      <hash n="PROPERTY_GROUPS"/>
                   </hash>
                   <hash>
-                     <value n="EXPOSED_BD_OPERATION" v="java.lang.String.borraSolicitud.webservice.Solicitudro1"/>
+                     <value n="EXPOSED_BD_OPERATION" v="int.getConection"/>
                      <value n="MODEL_CLASS" v="oracle.jdeveloper.webservices.model.PortOperation"/>
                      <hash n="PROPERTY_GROUPS"/>
                   </hash>
@@ -256,6 +267,11 @@
                   </hash>
                   <hash>
                      <value n="EXPOSED_BD_OPERATION" v="java.lang.String.borraLineasSolicitud.webservice.LineaSolicitud"/>
+                     <value n="MODEL_CLASS" v="oracle.jdeveloper.webservices.model.PortOperation"/>
+                     <hash n="PROPERTY_GROUPS"/>
+                  </hash>
+                  <hash>
+                     <value n="EXPOSED_BD_OPERATION" v="int.consultaTodasLasLineas"/>
                      <value n="MODEL_CLASS" v="oracle.jdeveloper.webservices.model.PortOperation"/>
                      <hash n="PROPERTY_GROUPS"/>
                   </hash>

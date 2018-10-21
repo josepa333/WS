@@ -41,6 +41,10 @@ public class ObjectFactory {
     private final static QName _CloseConexionResponse_QNAME = new QName("http://webservice/", "closeConexionResponse");
     private final static QName _Commit_QNAME = new QName("http://webservice/", "commit");
     private final static QName _CommitResponse_QNAME = new QName("http://webservice/", "commitResponse");
+    private final static QName _ConsultaTodasLasLineas_QNAME =
+        new QName("http://webservice/", "consultaTodasLasLineas");
+    private final static QName _ConsultaTodasLasLineasResponse_QNAME =
+        new QName("http://webservice/", "consultaTodasLasLineasResponse");
     private final static QName _GetConection_QNAME = new QName("http://webservice/", "getConection");
     private final static QName _GetConectionResponse_QNAME = new QName("http://webservice/", "getConectionResponse");
     private final static QName _GetLineaSolicitudes_QNAME = new QName("http://webservice/", "getLineaSolicitudes");
@@ -161,6 +165,22 @@ public class ObjectFactory {
      */
     public CommitResponse createCommitResponse() {
         return new CommitResponse();
+    }
+
+    /**
+     * Create an instance of {@link ConsultaTodasLasLineas }
+     *
+     */
+    public ConsultaTodasLasLineas createConsultaTodasLasLineas() {
+        return new ConsultaTodasLasLineas();
+    }
+
+    /**
+     * Create an instance of {@link ConsultaTodasLasLineasResponse }
+     *
+     */
+    public ConsultaTodasLasLineasResponse createConsultaTodasLasLineasResponse() {
+        return new ConsultaTodasLasLineasResponse();
     }
 
     /**
@@ -388,6 +408,26 @@ public class ObjectFactory {
     @XmlElementDecl(namespace = "http://webservice/", name = "commitResponse")
     public JAXBElement<CommitResponse> createCommitResponse(CommitResponse value) {
         return new JAXBElement<CommitResponse>(_CommitResponse_QNAME, CommitResponse.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link ConsultaTodasLasLineas }{@code >}}
+     *
+     */
+    @XmlElementDecl(namespace = "http://webservice/", name = "consultaTodasLasLineas")
+    public JAXBElement<ConsultaTodasLasLineas> createConsultaTodasLasLineas(ConsultaTodasLasLineas value) {
+        return new JAXBElement<ConsultaTodasLasLineas>(_ConsultaTodasLasLineas_QNAME, ConsultaTodasLasLineas.class,
+                                                       null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link ConsultaTodasLasLineasResponse }{@code >}}
+     *
+     */
+    @XmlElementDecl(namespace = "http://webservice/", name = "consultaTodasLasLineasResponse")
+    public JAXBElement<ConsultaTodasLasLineasResponse> createConsultaTodasLasLineasResponse(ConsultaTodasLasLineasResponse value) {
+        return new JAXBElement<ConsultaTodasLasLineasResponse>(_ConsultaTodasLasLineasResponse_QNAME,
+                                                               ConsultaTodasLasLineasResponse.class, null, value);
     }
 
     /**

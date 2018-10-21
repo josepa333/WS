@@ -55,18 +55,19 @@ public interface SessionEJB1Bean {
 
     /**
      *
+     * @param arg0
      * @return
-     *     returns int
+     *     returns java.lang.String
      */
     @WebMethod
     @WebResult(targetNamespace = "")
-    @RequestWrapper(localName = "getConection", targetNamespace = "http://webservice/",
-                    className = "webservice.GetConection")
-    @ResponseWrapper(localName = "getConectionResponse", targetNamespace = "http://webservice/",
-                     className = "webservice.GetConectionResponse")
-    @Action(input = "http://webservice/SessionEJB1Bean/getConectionRequest",
-            output = "http://webservice/SessionEJB1Bean/getConectionResponse")
-    public int getConection();
+    @RequestWrapper(localName = "borraSolicitud", targetNamespace = "http://webservice/",
+                    className = "webservice.BorraSolicitud")
+    @ResponseWrapper(localName = "borraSolicitudResponse", targetNamespace = "http://webservice/",
+                     className = "webservice.BorraSolicitudResponse")
+    @Action(input = "http://webservice/SessionEJB1Bean/borraSolicitudRequest",
+            output = "http://webservice/SessionEJB1Bean/borraSolicitudResponse")
+    public String borraSolicitud(@WebParam(name = "arg0", targetNamespace = "") Solicitudro1 arg0);
 
     /**
      *
@@ -117,19 +118,18 @@ public interface SessionEJB1Bean {
 
     /**
      *
-     * @param arg0
      * @return
-     *     returns java.lang.String
+     *     returns int
      */
     @WebMethod
     @WebResult(targetNamespace = "")
-    @RequestWrapper(localName = "borraSolicitud", targetNamespace = "http://webservice/",
-                    className = "webservice.BorraSolicitud")
-    @ResponseWrapper(localName = "borraSolicitudResponse", targetNamespace = "http://webservice/",
-                     className = "webservice.BorraSolicitudResponse")
-    @Action(input = "http://webservice/SessionEJB1Bean/borraSolicitudRequest",
-            output = "http://webservice/SessionEJB1Bean/borraSolicitudResponse")
-    public String borraSolicitud(@WebParam(name = "arg0", targetNamespace = "") Solicitudro1 arg0);
+    @RequestWrapper(localName = "getConection", targetNamespace = "http://webservice/",
+                    className = "webservice.GetConection")
+    @ResponseWrapper(localName = "getConectionResponse", targetNamespace = "http://webservice/",
+                     className = "webservice.GetConectionResponse")
+    @Action(input = "http://webservice/SessionEJB1Bean/getConectionRequest",
+            output = "http://webservice/SessionEJB1Bean/getConectionResponse")
+    public int getConection();
 
     /**
      *
@@ -210,5 +210,20 @@ public interface SessionEJB1Bean {
     @Action(input = "http://webservice/SessionEJB1Bean/borraLineasSolicitudRequest",
             output = "http://webservice/SessionEJB1Bean/borraLineasSolicitudResponse")
     public String borraLineasSolicitud(@WebParam(name = "arg0", targetNamespace = "") LineaSolicitud arg0);
+
+    /**
+     *
+     * @return
+     *     returns int
+     */
+    @WebMethod
+    @WebResult(targetNamespace = "")
+    @RequestWrapper(localName = "consultaTodasLasLineas", targetNamespace = "http://webservice/",
+                    className = "webservice.ConsultaTodasLasLineas")
+    @ResponseWrapper(localName = "consultaTodasLasLineasResponse", targetNamespace = "http://webservice/",
+                     className = "webservice.ConsultaTodasLasLineasResponse")
+    @Action(input = "http://webservice/SessionEJB1Bean/consultaTodasLasLineasRequest",
+            output = "http://webservice/SessionEJB1Bean/consultaTodasLasLineasResponse")
+    public int consultaTodasLasLineas();
 
 }

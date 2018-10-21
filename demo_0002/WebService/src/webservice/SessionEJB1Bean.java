@@ -42,6 +42,7 @@ public class SessionEJB1Bean implements SessionEJB1, SessionEJB1Local {
         static PreparedStatement borraLineas;
         static PreparedStatement consultaLineas;
         static PreparedStatement actualizaTablasAnidadas;
+        static PreparedStatement consultaTodasLasFilas;
 
     public SessionEJB1Bean() {
         
@@ -65,8 +66,10 @@ public class SessionEJB1Bean implements SessionEJB1, SessionEJB1Local {
                  //Lineas
                  actualizaTablasAnidadas = conexion.prepareStatement("Update solicitudro s set LINEASSOLICITUD = cast( multiset( select ref(g) from Lineasolicitudro g Where deref(g.solicitud).idsolicitud =  s.idsolicitud) as COLLECTIONLINEASOLICITUD_TYPE)");
                  
+                 consultaTodasLasFilas = conexion.prepareStatement("select count(*) co from lineasolicitudro");
+                 
                  insertaLineas = conexion.prepareStatement("insert into lineasolicitudro values(?,(select ref(p) from prendaro p where idprenda = ?),(select ref(t) from tallaro t where idtalla = ?),?,(select ref(o) from ordenproduccionro o where idordenproduccion = ?),(select ref(s) from solicitudro s where idsolicitud = ?))");
-                 consultaLineas = conexion.prepareStatement("select * from lineasolicitudro lin where deref(lin.solicitud).idsolicitud = ?");
+                 consultaLineas = conexion.prepareStatement("select idlineasolicitud,cantidad, deref(lin.prenda).idprenda prenda,deref(lin.talla).idtalla talla , deref(lin.ordenproduccion).idordenproduccion ordenproduccion ,deref(lin.solicitud).idsolicitud SOLICITUD from lineasolicitudro lin where deref(lin.solicitud).idsolicitud = ?");
                  actualizaLineas = conexion.prepareStatement("update lineasolicitudro set cantidad = ?, talla = (select ref(t) from tallaro t where idtalla = ?), prenda = (select ref(p) from prendaro p where idprenda = ?) Where idlineasolicitud = ?");
                  borraLineas = conexion.prepareStatement("Delete From Lineasolicitudro Where idlineasolicitud = ?");
 
@@ -187,12 +190,12 @@ public class SessionEJB1Bean implements SessionEJB1, SessionEJB1Local {
                         consultaLineas.setLong(1, idSolicitud);
                         rset = consultaLineas.executeQuery();
                         while (rset.next()){
-                            solicitudes.add(new LineaSolicitud (rset.getInt("cantidad"),
-                                                                rset.getInt("idlineasolicitud"),
-                                                                rset.getLong("idordenproduccion"),
-                                                                rset.getInt("idprenda"),
-                                                                rset.getLong("IDSOLICITUD"),
-                                                                rset.getInt("idtalla")
+                            solicitudes.add(new LineaSolicitud (rset.getInt("CANTIDAD"),
+                                                                rset.getInt("IDLINEASOLICITUD"),
+                                                                rset.getLong("ORDENPRODUCCION"),
+                                                                rset.getInt("PRENDA"),
+                                                                rset.getLong("SOLICITUD"),
+                                                                rset.getInt("TALLA")
                                                                )
                             );
                         };
@@ -200,6 +203,7 @@ public class SessionEJB1Bean implements SessionEJB1, SessionEJB1Local {
                         return solicitudes;
                     }
                     catch (SQLException e) {
+                        solicitudes.add(new LineaSolicitud (e.getErrorCode(),0,0L,0,0L,0));
                     return solicitudes;
                     }
                 }
@@ -256,6 +260,19 @@ public class SessionEJB1Bean implements SessionEJB1, SessionEJB1Local {
          }
          catch(Exception e){
              return  e.getMessage();
+         }
+     }
+    
+    @WebMethod
+    public int consultaTodasLasLineas(){
+         try {
+             ResultSet rset;
+             rset = consultaTodasLasFilas.executeQuery();
+             rset.next();
+             return rset.getInt("CO");
+         }
+         catch (SQLException e) {
+            return  e.getErrorCode();
          }
      }
     
