@@ -1,5 +1,15 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <xsd:schema xmlns:ns0="http://webservice/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="http://webservice/">
+  <xsd:complexType name="actualizaLineasSolicitud">
+    <xsd:sequence>
+      <xsd:element name="arg0" type="ns0:lineaSolicitud" minOccurs="0"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="actualizaLineasSolicitudResponse">
+    <xsd:sequence>
+      <xsd:element name="return" type="xsd:string" minOccurs="0"/>
+    </xsd:sequence>
+  </xsd:complexType>
   <xsd:complexType name="actualizaSolicitud">
     <xsd:sequence>
       <xsd:element name="arg0" type="ns0:solicitudro1" minOccurs="0"/>
@@ -7,7 +17,17 @@
   </xsd:complexType>
   <xsd:complexType name="actualizaSolicitudResponse">
     <xsd:sequence>
-      <xsd:element name="return" type="xsd:boolean"/>
+      <xsd:element name="return" type="xsd:string" minOccurs="0"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="borraLineasSolicitud">
+    <xsd:sequence>
+      <xsd:element name="arg0" type="ns0:lineaSolicitud" minOccurs="0"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="borraLineasSolicitudResponse">
+    <xsd:sequence>
+      <xsd:element name="return" type="xsd:string" minOccurs="0"/>
     </xsd:sequence>
   </xsd:complexType>
   <xsd:complexType name="borraSolicitud">
@@ -17,7 +37,7 @@
   </xsd:complexType>
   <xsd:complexType name="borraSolicitudResponse">
     <xsd:sequence>
-      <xsd:element name="return" type="xsd:boolean"/>
+      <xsd:element name="return" type="xsd:string" minOccurs="0"/>
     </xsd:sequence>
   </xsd:complexType>
   <xsd:complexType name="closeConexion">
@@ -46,7 +66,11 @@
       <xsd:element name="return" type="xsd:int"/>
     </xsd:sequence>
   </xsd:complexType>
-  <xsd:complexType name="getLineaSolicitudes"/>
+  <xsd:complexType name="getLineaSolicitudes">
+    <xsd:sequence>
+      <xsd:element name="arg0" type="xsd:long" minOccurs="0"/>
+    </xsd:sequence>
+  </xsd:complexType>
   <xsd:complexType name="getLineaSolicitudesResponse">
     <xsd:sequence>
       <xsd:element name="return" type="ns0:lineaSolicitud" minOccurs="0" maxOccurs="unbounded"/>
@@ -58,6 +82,16 @@
       <xsd:element name="return" type="ns0:solicitudro1" minOccurs="0" maxOccurs="unbounded"/>
     </xsd:sequence>
   </xsd:complexType>
+  <xsd:complexType name="insertaLineasSolicitud">
+    <xsd:sequence>
+      <xsd:element name="arg0" type="ns0:lineaSolicitud" minOccurs="0"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="insertaLineasSolicitudResponse">
+    <xsd:sequence>
+      <xsd:element name="return" type="xsd:string" minOccurs="0"/>
+    </xsd:sequence>
+  </xsd:complexType>
   <xsd:complexType name="insertaSolicitud">
     <xsd:sequence>
       <xsd:element name="arg0" type="ns0:solicitudro1" minOccurs="0"/>
@@ -65,7 +99,7 @@
   </xsd:complexType>
   <xsd:complexType name="insertaSolicitudResponse">
     <xsd:sequence>
-      <xsd:element name="return" type="xsd:boolean"/>
+      <xsd:element name="return" type="xsd:string" minOccurs="0"/>
     </xsd:sequence>
   </xsd:complexType>
   <xsd:complexType name="setSessionContext">
@@ -74,15 +108,6 @@
     </xsd:sequence>
   </xsd:complexType>
   <xsd:complexType name="setSessionContextResponse"/>
-  <xsd:complexType name="solicitudro1">
-    <xsd:sequence>
-      <xsd:element name="fchmaxima" type="xsd:dateTime" minOccurs="0"/>
-      <xsd:element name="fchsolicitud" type="xsd:dateTime" minOccurs="0"/>
-      <xsd:element name="idcliente" type="xsd:int"/>
-      <xsd:element name="idsolicitud" type="xsd:long" minOccurs="0"/>
-      <xsd:element name="lineas" type="xsd:anySimpleType" minOccurs="0" maxOccurs="unbounded" nillable="true"/>
-    </xsd:sequence>
-  </xsd:complexType>
   <xsd:complexType name="lineaSolicitud">
     <xsd:sequence>
       <xsd:element name="cantidad" type="xsd:int" minOccurs="0"/>
@@ -93,8 +118,20 @@
       <xsd:element name="idtalla" type="xsd:int" minOccurs="0"/>
     </xsd:sequence>
   </xsd:complexType>
+  <xsd:complexType name="solicitudro1">
+    <xsd:sequence>
+      <xsd:element name="fchmaxima" type="xsd:dateTime" minOccurs="0"/>
+      <xsd:element name="fchsolicitud" type="xsd:dateTime" minOccurs="0"/>
+      <xsd:element name="idcliente" type="xsd:long" minOccurs="0"/>
+      <xsd:element name="idsolicitud" type="xsd:long" minOccurs="0"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:element name="actualizaLineasSolicitud" type="ns0:actualizaLineasSolicitud"/>
+  <xsd:element name="actualizaLineasSolicitudResponse" type="ns0:actualizaLineasSolicitudResponse"/>
   <xsd:element name="actualizaSolicitud" type="ns0:actualizaSolicitud"/>
   <xsd:element name="actualizaSolicitudResponse" type="ns0:actualizaSolicitudResponse"/>
+  <xsd:element name="borraLineasSolicitud" type="ns0:borraLineasSolicitud"/>
+  <xsd:element name="borraLineasSolicitudResponse" type="ns0:borraLineasSolicitudResponse"/>
   <xsd:element name="borraSolicitud" type="ns0:borraSolicitud"/>
   <xsd:element name="borraSolicitudResponse" type="ns0:borraSolicitudResponse"/>
   <xsd:element name="closeConexion" type="ns0:closeConexion"/>
@@ -107,6 +144,8 @@
   <xsd:element name="getLineaSolicitudesResponse" type="ns0:getLineaSolicitudesResponse"/>
   <xsd:element name="getSolicitudes" type="ns0:getSolicitudes"/>
   <xsd:element name="getSolicitudesResponse" type="ns0:getSolicitudesResponse"/>
+  <xsd:element name="insertaLineasSolicitud" type="ns0:insertaLineasSolicitud"/>
+  <xsd:element name="insertaLineasSolicitudResponse" type="ns0:insertaLineasSolicitudResponse"/>
   <xsd:element name="insertaSolicitud" type="ns0:insertaSolicitud"/>
   <xsd:element name="insertaSolicitudResponse" type="ns0:insertaSolicitudResponse"/>
   <xsd:element name="setSessionContext" type="ns0:setSessionContext"/>

@@ -24,12 +24,10 @@ import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
 
-import oracle.sql.ARRAY;
-
 
 @Stateless(name = "SessionEJB1", mappedName = "demo_0002-WebService-SessionEJB1")
 @TransactionManagement(TransactionManagementType.BEAN)
-@WebService
+@WebService(wsdlLocation = "/META-INF/SessionEJB1BeanService.wsdl")
 public class SessionEJB1Bean implements SessionEJB1, SessionEJB1Local {
     @Resource
     SessionContext sessionContext;
@@ -43,6 +41,7 @@ public class SessionEJB1Bean implements SessionEJB1, SessionEJB1Local {
         static PreparedStatement actualizaLineas;
         static PreparedStatement borraLineas;
         static PreparedStatement consultaLineas;
+        static PreparedStatement actualizaTablasAnidadas;
 
     public SessionEJB1Bean() {
         
@@ -57,17 +56,19 @@ public class SessionEJB1Bean implements SessionEJB1, SessionEJB1Local {
                  conexion.setAutoCommit(false);
                  conexion.setTransactionIsolation(Connection.TRANSACTION_REPEATABLE_READ);
                  listaConexiones.add(conexion);
-                 inserta = conexion.prepareStatement("execute crearSolicitud(?,?,?,?)");
+                 
+                 inserta = conexion.prepareStatement("INSERT INTO solicitudro values(?, ?, ?,(select ref(c) from clientero c where idCliente = ?),COLLECTIONLINEASOLICITUD_TYPE())");
                  consulta = conexion.prepareStatement("select sol.IDSOLICITUD, sol.FCHSOLICITUD, sol.FCHMAXIMA, deref(sol.CLIENTE).idCliente clID, sol.LINEASSOLICITUD from solicitudro sol");
                  actualiza = conexion.prepareStatement("Update Solicitudro set fchmaxima = ?, fchsolicitud = ? Where idsolicitud = ?");
                  borra = conexion.prepareStatement("Delete From Solicitudro Where idsolicitud = ?");
                 
-                
                  //Lineas
-                 insertaLineas = conexion.prepareStatement("Insert into Lineasolicitud Values(?,?,?,?,?,?)");
-                 consultaLineas = conexion.prepareStatement("Select * From Lineasolicitud");
-                 actualizaLineas = conexion.prepareStatement("Update lineaSolicitud set cantidad = ?, idtalla = ?, idprenda = ? Where idlineasolicitud = ?");
-                 borraLineas = conexion.prepareStatement("Delete From Lineasolicitud Where idlineasolicitud = ?");
+                 actualizaTablasAnidadas = conexion.prepareStatement("Update solicitudro s set LINEASSOLICITUD = cast( multiset( select ref(g) from Lineasolicitudro g Where deref(g.solicitud).idsolicitud =  s.idsolicitud) as COLLECTIONLINEASOLICITUD_TYPE)");
+                 
+                 insertaLineas = conexion.prepareStatement("insert into lineasolicitudro values(?,(select ref(p) from prendaro p where idprenda = ?),(select ref(t) from tallaro t where idtalla = ?),?,(select ref(o) from ordenproduccionro o where idordenproduccion = ?),(select ref(s) from solicitudro s where idsolicitud = ?))");
+                 consultaLineas = conexion.prepareStatement("select * from lineasolicitudro lin where deref(lin.solicitud).idsolicitud = ?");
+                 actualizaLineas = conexion.prepareStatement("update lineasolicitudro set cantidad = ?, talla = (select ref(t) from tallaro t where idtalla = ?), prenda = (select ref(p) from prendaro p where idprenda = ?) Where idlineasolicitud = ?");
+                 borraLineas = conexion.prepareStatement("Delete From Lineasolicitudro Where idlineasolicitud = ?");
 
                  return listaConexiones.size() - 1;
              }
@@ -109,9 +110,8 @@ public class SessionEJB1Bean implements SessionEJB1, SessionEJB1Local {
                  ResultSet rset;
                  rset = consulta.executeQuery();
                  while (rset.next()){
-                     solicitudes.add(new Solicitudro1 (rset.getDate("fchmaxima"),rset.getDate("fchsolicitud"), rset.getInt("clID"),
-                     rset.getLong("idsolicitud"),(ARRAY) rset.getObject("LINEASSOLICITUD")
-                    )
+                     solicitudes.add(new Solicitudro1 (rset.getDate("fchmaxima"),rset.getDate("fchsolicitud"), rset.getLong("clID"),
+                     rset.getLong("idsolicitud") )
                      );
                  };
                  rset.close();
@@ -120,79 +120,145 @@ public class SessionEJB1Bean implements SessionEJB1, SessionEJB1Local {
              
              catch (SQLException e) {
                  java.sql.Date sqlDate = new java.sql.Date(Calendar.getInstance().getTime().getTime());
-                Solicitudro1 sol = new Solicitudro1( sqlDate,sqlDate, 2,3L, null ); 
+                Solicitudro1 sol = new Solicitudro1( sqlDate,sqlDate, 2L,3L ); 
                 sol.setError(e.getMessage());
                 solicitudes.add(sol);
              return solicitudes;
              }
          }
         
+        
         @WebMethod
-        public boolean insertaSolicitud(Solicitudro1 solicitud){
+        public String insertaSolicitud(Solicitudro1 solicitud){
              try{         
                  inserta.setLong(1,solicitud.getIdsolicitud());
                  inserta.setDate(2, new java.sql.Date(solicitud.getFchsolicitud().getTime()));
                  inserta.setDate(3, new java.sql.Date(solicitud.getFchmaxima().getTime()));
-                 inserta.setInt (4,solicitud.getIdcliente() );
+                 inserta.setLong (4,solicitud.getIdcliente() );
                  inserta.executeUpdate();
-                 return true;
+                 return "true";
              }
              catch (SQLException e) {
-                return false;
+                return e.getMessage();
+             }
+             catch(Exception e){
+                 return  e.getMessage();
              }
          }
         
         @WebMethod//Revisar la fecha en caso defallo pasarala a java.sql.Date
-        public boolean actualizaSolicitud(Solicitudro1 solicitud){
+        public String actualizaSolicitud(Solicitudro1 solicitud){
             try {
                  actualiza.setDate(1, new java.sql.Date(solicitud.getFchmaxima().getTime()));
                  actualiza.setDate(2, new java.sql.Date(solicitud.getFchsolicitud().getTime()));
                  actualiza.setLong(3, solicitud.getIdsolicitud());
                  actualiza.executeUpdate();
-                 return true;
+                 return "true";
              }
              catch (SQLException e) {
-                 return false;
+                 return e.getMessage();
              }
+            catch(Exception e){
+                return  e.getMessage();
+            }
         }
         
         @WebMethod
-        public boolean borraSolicitud(Solicitudro1 solicitud){
+        public String borraSolicitud(Solicitudro1 solicitud){
              try {
                  borra.setLong(1, solicitud.getIdsolicitud());
                  borra.executeUpdate();
-                 return true;
+                 return "true";
              }
              catch (SQLException e) {
-                return false;
+                return  e.getMessage();
+             }
+             catch(Exception e){
+                 return  e.getMessage();
              }
          }
         
     @WebMethod
-         public Collection<LineaSolicitud> getLineaSolicitudes() {
-              Collection<LineaSolicitud> solicitudes;
-              solicitudes = new ArrayList<LineaSolicitud>();
-              try {
-                  ResultSet rset;
-                  rset = consultaLineas.executeQuery();
-                  while (rset.next()){
-                      solicitudes.add(new LineaSolicitud (rset.getInt("cantidad"),
-                                                          rset.getInt("idlineasolicitud"),
-                                                          rset.getLong("idordenproduccion"),
-                                                          rset.getInt("idprenda"),
-                                                          rset.getLong("IDSOLICITUD"),
-                                                          rset.getInt("idtalla")
-                                                         )
-                      );
-                  };
-                  rset.close();
-                  return solicitudes;
-              }
-              catch (SQLException e) {
-              return solicitudes;
-              }
-          }
+     public Collection<LineaSolicitud> getLineaSolicitudes(Long idSolicitud) {
+          Collection<LineaSolicitud> solicitudes;
+                    solicitudes = new ArrayList<LineaSolicitud>();
+                    try {
+                        ResultSet rset;
+                        consultaLineas.setLong(1, idSolicitud);
+                        rset = consultaLineas.executeQuery();
+                        while (rset.next()){
+                            solicitudes.add(new LineaSolicitud (rset.getInt("cantidad"),
+                                                                rset.getInt("idlineasolicitud"),
+                                                                rset.getLong("idordenproduccion"),
+                                                                rset.getInt("idprenda"),
+                                                                rset.getLong("IDSOLICITUD"),
+                                                                rset.getInt("idtalla")
+                                                               )
+                            );
+                        };
+                        rset.close();
+                        return solicitudes;
+                    }
+                    catch (SQLException e) {
+                    return solicitudes;
+                    }
+                }
          
+    @WebMethod
+    public String insertaLineasSolicitud(LineaSolicitud lineaSolicitud){
+         try{         
+             
+             insertaLineas.setInt(1,lineaSolicitud.getIdlineasolicitud() );
+             insertaLineas.setInt(2,lineaSolicitud.getIdprenda());
+             insertaLineas.setInt(3,lineaSolicitud.getIdtalla());
+             insertaLineas.setInt(4,lineaSolicitud.getCantidad() );
+             insertaLineas.setLong(5,lineaSolicitud.getIdordenproduccion() );
+             insertaLineas.setLong(6,lineaSolicitud.getIdsolicitud());//Int .getID...
+
+             insertaLineas.executeUpdate();
+             return "true";
+         }
+         catch (SQLException e) {
+            return  e.getMessage();
+         }
+         catch(Exception e){
+             return  e.getMessage();
+         }
+     }
+    
+    @WebMethod
+    public String actualizaLineasSolicitud(LineaSolicitud lineaSolicitud){
+        try {
+             actualizaLineas.setInt(1,lineaSolicitud.getCantidad() );
+             actualizaLineas.setInt(2,lineaSolicitud.getIdtalla() );
+             actualizaLineas.setInt(3,lineaSolicitud.getIdprenda() );
+             actualizaLineas.setInt(4,lineaSolicitud.getIdlineasolicitud());
+             actualizaLineas.executeUpdate();
+             return "true";
+         }
+         catch (SQLException e) {
+             return  e.getMessage();
+         }
+        catch(Exception e){
+            return  e.getMessage();
+        }
+    }
+    
+    @WebMethod
+    public String borraLineasSolicitud(LineaSolicitud lineaSolicitud){
+         try {
+             borraLineas.setLong(1, lineaSolicitud.getIdlineasolicitud());
+             borraLineas.executeUpdate();
+             return "true";
+         }
+         catch (SQLException e) {
+            return  e.getMessage();
+         }
+         catch(Exception e){
+             return  e.getMessage();
+         }
+     }
+    
         
     public void setSessionContext( SessionContext ctx){
            this.sessionContext = ctx;

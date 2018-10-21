@@ -23,13 +23,11 @@ public class Solicitudro1 implements Serializable {
         private Date fchmaxima;
         @Temporal(TemporalType.DATE)
         private Date fchsolicitud;
-        @Column(nullable = false)
-        private int idcliente;
-        @Id
-        @Column(nullable = false)
-        private Long idsolicitud;
         @Column(nullable = true)
-        private ARRAY lineas;
+        private Long idcliente;
+        @Id
+        @Column(nullable = true)
+        private Long idsolicitud;
         @Column(nullable = true)
         private String error;
         
@@ -37,13 +35,11 @@ public class Solicitudro1 implements Serializable {
         public Solicitudro1() {
         }
 
-        public Solicitudro1(Date fchmaxima, Date fchsolicitud, int idcliente, Long idsolicitud,
-                            ARRAY lineas) {
+        public Solicitudro1(Date fchmaxima, Date fchsolicitud, Long idcliente, Long idsolicitud) {
             this.fchmaxima = fchmaxima;
             this.fchsolicitud = fchsolicitud;
             this.idcliente = idcliente;
             this.idsolicitud = idsolicitud;
-            this.lineas = lineas;
         }
 
 
@@ -63,11 +59,11 @@ public class Solicitudro1 implements Serializable {
             this.fchsolicitud = fchsolicitud;
         }
 
-        public int getIdcliente() {
+        public Long getIdcliente() {
             return idcliente;
         }
 
-        public void setIdcliente(int idcliente) {
+        public void setIdcliente(Long idcliente) {
             this.idcliente = idcliente;
         }
 
@@ -87,13 +83,6 @@ public class Solicitudro1 implements Serializable {
             this.error = error;
         }
         
-        public ARRAY getLineas() {
-            return lineas;
-        }
-        
-        public void setLineas(ARRAY lineas) {
-            this.lineas = lineas;
-        }
         
         @Override
         public String toString() {

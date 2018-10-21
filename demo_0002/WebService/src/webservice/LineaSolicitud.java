@@ -12,18 +12,18 @@ import javax.persistence.NamedQuery;
 @NamedQueries({ @NamedQuery(name = "Lineasolicitud.findAll", query = "select o from Lineasolicitud o") })
 public class LineaSolicitud implements Serializable {
     private static final long serialVersionUID = -472196527465968131L;
-    @Column(nullable = false)
+    @Column(nullable = true)
     private Integer cantidad;
     @Id
-    @Column(nullable = false)
+    @Column(nullable = true)
     private Integer idlineasolicitud;
-    @Column(nullable = false)
+    @Column(nullable = true)
     private Long idordenproduccion;
-    @Column(nullable = false)
+    @Column(nullable = true)
     private Integer idprenda;
-    @Column(nullable = false)
+    @Column(nullable = true)
     private Long idsolicitud;
-    @Column(nullable = false)
+    @Column(nullable = true)
     private Integer idtalla;
 
     public LineaSolicitud() {
