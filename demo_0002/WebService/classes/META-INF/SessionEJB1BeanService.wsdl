@@ -5,6 +5,54 @@
       <xsd:import namespace="http://webservice/" schemaLocation="SessionEJB1BeanService_schema1.xsd"/>
     </xsd:schema>
   </types>
+  <message name="commit">
+    <part name="parameters" element="tns:commit"/>
+  </message>
+  <message name="commitResponse">
+    <part name="parameters" element="tns:commitResponse"/>
+  </message>
+  <message name="actualizaSolicitud">
+    <part name="parameters" element="tns:actualizaSolicitud"/>
+  </message>
+  <message name="actualizaSolicitudResponse">
+    <part name="parameters" element="tns:actualizaSolicitudResponse"/>
+  </message>
+  <message name="getLineaSolicitudes">
+    <part name="parameters" element="tns:getLineaSolicitudes"/>
+  </message>
+  <message name="getLineaSolicitudesResponse">
+    <part name="parameters" element="tns:getLineaSolicitudesResponse"/>
+  </message>
+  <message name="insertaLineasSolicitud">
+    <part name="parameters" element="tns:insertaLineasSolicitud"/>
+  </message>
+  <message name="insertaLineasSolicitudResponse">
+    <part name="parameters" element="tns:insertaLineasSolicitudResponse"/>
+  </message>
+  <message name="actualizaLineasSolicitud">
+    <part name="parameters" element="tns:actualizaLineasSolicitud"/>
+  </message>
+  <message name="actualizaLineasSolicitudResponse">
+    <part name="parameters" element="tns:actualizaLineasSolicitudResponse"/>
+  </message>
+  <message name="borraLineasSolicitud">
+    <part name="parameters" element="tns:borraLineasSolicitud"/>
+  </message>
+  <message name="borraLineasSolicitudResponse">
+    <part name="parameters" element="tns:borraLineasSolicitudResponse"/>
+  </message>
+  <message name="consultaTodasLasLineas">
+    <part name="parameters" element="tns:consultaTodasLasLineas"/>
+  </message>
+  <message name="consultaTodasLasLineasResponse">
+    <part name="parameters" element="tns:consultaTodasLasLineasResponse"/>
+  </message>
+  <message name="setSessionContext">
+    <part name="parameters" element="tns:setSessionContext"/>
+  </message>
+  <message name="setSessionContextResponse">
+    <part name="parameters" element="tns:setSessionContextResponse"/>
+  </message>
   <message name="getConection">
     <part name="parameters" element="tns:getConection"/>
   </message>
@@ -47,55 +95,39 @@
   <message name="consulta2Response">
     <part name="parameters" element="tns:consulta2Response"/>
   </message>
-  <message name="commit">
-    <part name="parameters" element="tns:commit"/>
-  </message>
-  <message name="commitResponse">
-    <part name="parameters" element="tns:commitResponse"/>
-  </message>
-  <message name="setSessionContext">
-    <part name="parameters" element="tns:setSessionContext"/>
-  </message>
-  <message name="setSessionContextResponse">
-    <part name="parameters" element="tns:setSessionContextResponse"/>
-  </message>
-  <message name="actualizaSolicitud">
-    <part name="parameters" element="tns:actualizaSolicitud"/>
-  </message>
-  <message name="actualizaSolicitudResponse">
-    <part name="parameters" element="tns:actualizaSolicitudResponse"/>
-  </message>
-  <message name="getLineaSolicitudes">
-    <part name="parameters" element="tns:getLineaSolicitudes"/>
-  </message>
-  <message name="getLineaSolicitudesResponse">
-    <part name="parameters" element="tns:getLineaSolicitudesResponse"/>
-  </message>
-  <message name="insertaLineasSolicitud">
-    <part name="parameters" element="tns:insertaLineasSolicitud"/>
-  </message>
-  <message name="insertaLineasSolicitudResponse">
-    <part name="parameters" element="tns:insertaLineasSolicitudResponse"/>
-  </message>
-  <message name="actualizaLineasSolicitud">
-    <part name="parameters" element="tns:actualizaLineasSolicitud"/>
-  </message>
-  <message name="actualizaLineasSolicitudResponse">
-    <part name="parameters" element="tns:actualizaLineasSolicitudResponse"/>
-  </message>
-  <message name="borraLineasSolicitud">
-    <part name="parameters" element="tns:borraLineasSolicitud"/>
-  </message>
-  <message name="borraLineasSolicitudResponse">
-    <part name="parameters" element="tns:borraLineasSolicitudResponse"/>
-  </message>
-  <message name="consultaTodasLasLineas">
-    <part name="parameters" element="tns:consultaTodasLasLineas"/>
-  </message>
-  <message name="consultaTodasLasLineasResponse">
-    <part name="parameters" element="tns:consultaTodasLasLineasResponse"/>
-  </message>
   <portType name="SessionEJB1Bean">
+    <operation name="commit">
+      <input wsam:Action="http://webservice/SessionEJB1Bean/commitRequest" message="tns:commit"/>
+      <output wsam:Action="http://webservice/SessionEJB1Bean/commitResponse" message="tns:commitResponse"/>
+    </operation>
+    <operation name="actualizaSolicitud">
+      <input wsam:Action="http://webservice/SessionEJB1Bean/actualizaSolicitudRequest" message="tns:actualizaSolicitud"/>
+      <output wsam:Action="http://webservice/SessionEJB1Bean/actualizaSolicitudResponse" message="tns:actualizaSolicitudResponse"/>
+    </operation>
+    <operation name="getLineaSolicitudes">
+      <input wsam:Action="http://webservice/SessionEJB1Bean/getLineaSolicitudesRequest" message="tns:getLineaSolicitudes"/>
+      <output wsam:Action="http://webservice/SessionEJB1Bean/getLineaSolicitudesResponse" message="tns:getLineaSolicitudesResponse"/>
+    </operation>
+    <operation name="insertaLineasSolicitud">
+      <input wsam:Action="http://webservice/SessionEJB1Bean/insertaLineasSolicitudRequest" message="tns:insertaLineasSolicitud"/>
+      <output wsam:Action="http://webservice/SessionEJB1Bean/insertaLineasSolicitudResponse" message="tns:insertaLineasSolicitudResponse"/>
+    </operation>
+    <operation name="actualizaLineasSolicitud">
+      <input wsam:Action="http://webservice/SessionEJB1Bean/actualizaLineasSolicitudRequest" message="tns:actualizaLineasSolicitud"/>
+      <output wsam:Action="http://webservice/SessionEJB1Bean/actualizaLineasSolicitudResponse" message="tns:actualizaLineasSolicitudResponse"/>
+    </operation>
+    <operation name="borraLineasSolicitud">
+      <input wsam:Action="http://webservice/SessionEJB1Bean/borraLineasSolicitudRequest" message="tns:borraLineasSolicitud"/>
+      <output wsam:Action="http://webservice/SessionEJB1Bean/borraLineasSolicitudResponse" message="tns:borraLineasSolicitudResponse"/>
+    </operation>
+    <operation name="consultaTodasLasLineas">
+      <input wsam:Action="http://webservice/SessionEJB1Bean/consultaTodasLasLineasRequest" message="tns:consultaTodasLasLineas"/>
+      <output wsam:Action="http://webservice/SessionEJB1Bean/consultaTodasLasLineasResponse" message="tns:consultaTodasLasLineasResponse"/>
+    </operation>
+    <operation name="setSessionContext">
+      <input wsam:Action="http://webservice/SessionEJB1Bean/setSessionContextRequest" message="tns:setSessionContext"/>
+      <output wsam:Action="http://webservice/SessionEJB1Bean/setSessionContextResponse" message="tns:setSessionContextResponse"/>
+    </operation>
     <operation name="getConection">
       <input wsam:Action="http://webservice/SessionEJB1Bean/getConectionRequest" message="tns:getConection"/>
       <output wsam:Action="http://webservice/SessionEJB1Bean/getConectionResponse" message="tns:getConectionResponse"/>
@@ -124,41 +156,81 @@
       <input wsam:Action="http://webservice/SessionEJB1Bean/consulta2Request" message="tns:consulta2"/>
       <output wsam:Action="http://webservice/SessionEJB1Bean/consulta2Response" message="tns:consulta2Response"/>
     </operation>
-    <operation name="commit">
-      <input wsam:Action="http://webservice/SessionEJB1Bean/commitRequest" message="tns:commit"/>
-      <output wsam:Action="http://webservice/SessionEJB1Bean/commitResponse" message="tns:commitResponse"/>
-    </operation>
-    <operation name="setSessionContext">
-      <input wsam:Action="http://webservice/SessionEJB1Bean/setSessionContextRequest" message="tns:setSessionContext"/>
-      <output wsam:Action="http://webservice/SessionEJB1Bean/setSessionContextResponse" message="tns:setSessionContextResponse"/>
-    </operation>
-    <operation name="actualizaSolicitud">
-      <input wsam:Action="http://webservice/SessionEJB1Bean/actualizaSolicitudRequest" message="tns:actualizaSolicitud"/>
-      <output wsam:Action="http://webservice/SessionEJB1Bean/actualizaSolicitudResponse" message="tns:actualizaSolicitudResponse"/>
-    </operation>
-    <operation name="getLineaSolicitudes">
-      <input wsam:Action="http://webservice/SessionEJB1Bean/getLineaSolicitudesRequest" message="tns:getLineaSolicitudes"/>
-      <output wsam:Action="http://webservice/SessionEJB1Bean/getLineaSolicitudesResponse" message="tns:getLineaSolicitudesResponse"/>
-    </operation>
-    <operation name="insertaLineasSolicitud">
-      <input wsam:Action="http://webservice/SessionEJB1Bean/insertaLineasSolicitudRequest" message="tns:insertaLineasSolicitud"/>
-      <output wsam:Action="http://webservice/SessionEJB1Bean/insertaLineasSolicitudResponse" message="tns:insertaLineasSolicitudResponse"/>
-    </operation>
-    <operation name="actualizaLineasSolicitud">
-      <input wsam:Action="http://webservice/SessionEJB1Bean/actualizaLineasSolicitudRequest" message="tns:actualizaLineasSolicitud"/>
-      <output wsam:Action="http://webservice/SessionEJB1Bean/actualizaLineasSolicitudResponse" message="tns:actualizaLineasSolicitudResponse"/>
-    </operation>
-    <operation name="borraLineasSolicitud">
-      <input wsam:Action="http://webservice/SessionEJB1Bean/borraLineasSolicitudRequest" message="tns:borraLineasSolicitud"/>
-      <output wsam:Action="http://webservice/SessionEJB1Bean/borraLineasSolicitudResponse" message="tns:borraLineasSolicitudResponse"/>
-    </operation>
-    <operation name="consultaTodasLasLineas">
-      <input wsam:Action="http://webservice/SessionEJB1Bean/consultaTodasLasLineasRequest" message="tns:consultaTodasLasLineas"/>
-      <output wsam:Action="http://webservice/SessionEJB1Bean/consultaTodasLasLineasResponse" message="tns:consultaTodasLasLineasResponse"/>
-    </operation>
   </portType>
   <binding name="SessionEJB1BeanPortBinding" type="tns:SessionEJB1Bean">
     <soap:binding transport="http://schemas.xmlsoap.org/soap/http" style="document"/>
+    <operation name="commit">
+      <soap:operation soapAction=""/>
+      <input>
+        <soap:body use="literal"/>
+      </input>
+      <output>
+        <soap:body use="literal"/>
+      </output>
+    </operation>
+    <operation name="actualizaSolicitud">
+      <soap:operation soapAction=""/>
+      <input>
+        <soap:body use="literal"/>
+      </input>
+      <output>
+        <soap:body use="literal"/>
+      </output>
+    </operation>
+    <operation name="getLineaSolicitudes">
+      <soap:operation soapAction=""/>
+      <input>
+        <soap:body use="literal"/>
+      </input>
+      <output>
+        <soap:body use="literal"/>
+      </output>
+    </operation>
+    <operation name="insertaLineasSolicitud">
+      <soap:operation soapAction=""/>
+      <input>
+        <soap:body use="literal"/>
+      </input>
+      <output>
+        <soap:body use="literal"/>
+      </output>
+    </operation>
+    <operation name="actualizaLineasSolicitud">
+      <soap:operation soapAction=""/>
+      <input>
+        <soap:body use="literal"/>
+      </input>
+      <output>
+        <soap:body use="literal"/>
+      </output>
+    </operation>
+    <operation name="borraLineasSolicitud">
+      <soap:operation soapAction=""/>
+      <input>
+        <soap:body use="literal"/>
+      </input>
+      <output>
+        <soap:body use="literal"/>
+      </output>
+    </operation>
+    <operation name="consultaTodasLasLineas">
+      <soap:operation soapAction=""/>
+      <input>
+        <soap:body use="literal"/>
+      </input>
+      <output>
+        <soap:body use="literal"/>
+      </output>
+    </operation>
+    <operation name="setSessionContext">
+      <soap:operation soapAction=""/>
+      <input>
+        <soap:body use="literal"/>
+      </input>
+      <output>
+        <soap:body use="literal"/>
+      </output>
+    </operation>
     <operation name="getConection">
       <soap:operation soapAction=""/>
       <input>
@@ -214,78 +286,6 @@
       </output>
     </operation>
     <operation name="consulta2">
-      <soap:operation soapAction=""/>
-      <input>
-        <soap:body use="literal"/>
-      </input>
-      <output>
-        <soap:body use="literal"/>
-      </output>
-    </operation>
-    <operation name="commit">
-      <soap:operation soapAction=""/>
-      <input>
-        <soap:body use="literal"/>
-      </input>
-      <output>
-        <soap:body use="literal"/>
-      </output>
-    </operation>
-    <operation name="setSessionContext">
-      <soap:operation soapAction=""/>
-      <input>
-        <soap:body use="literal"/>
-      </input>
-      <output>
-        <soap:body use="literal"/>
-      </output>
-    </operation>
-    <operation name="actualizaSolicitud">
-      <soap:operation soapAction=""/>
-      <input>
-        <soap:body use="literal"/>
-      </input>
-      <output>
-        <soap:body use="literal"/>
-      </output>
-    </operation>
-    <operation name="getLineaSolicitudes">
-      <soap:operation soapAction=""/>
-      <input>
-        <soap:body use="literal"/>
-      </input>
-      <output>
-        <soap:body use="literal"/>
-      </output>
-    </operation>
-    <operation name="insertaLineasSolicitud">
-      <soap:operation soapAction=""/>
-      <input>
-        <soap:body use="literal"/>
-      </input>
-      <output>
-        <soap:body use="literal"/>
-      </output>
-    </operation>
-    <operation name="actualizaLineasSolicitud">
-      <soap:operation soapAction=""/>
-      <input>
-        <soap:body use="literal"/>
-      </input>
-      <output>
-        <soap:body use="literal"/>
-      </output>
-    </operation>
-    <operation name="borraLineasSolicitud">
-      <soap:operation soapAction=""/>
-      <input>
-        <soap:body use="literal"/>
-      </input>
-      <output>
-        <soap:body use="literal"/>
-      </output>
-    </operation>
-    <operation name="consultaTodasLasLineas">
       <soap:operation soapAction=""/>
       <input>
         <soap:body use="literal"/>
