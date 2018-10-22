@@ -41,8 +41,13 @@ public class SessionEJB1Bean implements SessionEJB1, SessionEJB1Local {
         static PreparedStatement actualizaLineas;
         static PreparedStatement borraLineas;
         static PreparedStatement consultaLineas;
+        
         static PreparedStatement actualizaTablasAnidadas;
         static PreparedStatement consultaTodasLasFilas;
+        
+        //Consultas
+        static PreparedStatement consultaQuery1;
+        static PreparedStatement consultaQuery2;
 
     public SessionEJB1Bean() {
         
@@ -64,7 +69,7 @@ public class SessionEJB1Bean implements SessionEJB1, SessionEJB1Local {
                  borra = conexion.prepareStatement("Delete From Solicitudro Where idsolicitud = ?");
                 
                  //Lineas
-                 actualizaTablasAnidadas = conexion.prepareStatement("Update solicitudro s set LINEASSOLICITUD = cast( multiset( select ref(g) from Lineasolicitudro g Where deref(g.solicitud).idsolicitud =  s.idsolicitud) as COLLECTIONLINEASOLICITUD_TYPE)");
+                 actualizaTablasAnidadas = conexion.prepareCall("{call actualizaLineasSolicitud}");
                  
                  consultaTodasLasFilas = conexion.prepareStatement("select count(*) co from lineasolicitudro");
                  
@@ -73,6 +78,10 @@ public class SessionEJB1Bean implements SessionEJB1, SessionEJB1Local {
                  actualizaLineas = conexion.prepareStatement("update lineasolicitudro set cantidad = ?, talla = (select ref(t) from tallaro t where idtalla = ?), prenda = (select ref(p) from prendaro p where idprenda = ?) Where idlineasolicitud = ?");
                  borraLineas = conexion.prepareStatement("Delete From Lineasolicitudro Where idlineasolicitud = ?");
 
+                //Consultas
+                 consultaQuery1 = conexion.prepareStatement("SELECT deref(ls.solicitud).idSolicitud SOLICITUD, r.idMateriaPrima IDMATERIAPRIMA, deref(f.UnidadMedida).idUnidadMedida UNIDADMEDIDA, f.cantidadFaltante CANTIDADFALTANTE FROM LineaSolicitudRO ls , RecetaRO r, FaltantesRO f WHERE ((deref(ls.prenda).idPrenda = r.idPrenda)and (deref(ls.talla).idtalla = r.idPrenda) and (r.idMateriaPrima = f.idMateriaPrima) and (deref(ls.ordenproduccion).idOrdenProduccion = f.idOrdenProduccion))");
+                 consultaQuery2 = conexion.prepareStatement("SELECT EXTRACT( year FROM deref(ls.SOLICITUD).FCHSOLICITUD) ANNO, deref(deref(deref(ls.SOLICITUD).Cliente).Pais).NOMBRE PAIS, deref(deref(ls.SOLICITUD).Cliente).NOMBRE CLIENTE, sum(ls.cantidad *deref(ls.prenda).costounitario) VENTA FROM    LINEASOLICITUDRO ls GROUP BY EXTRACT( year FROM deref(ls.SOLICITUD).FCHSOLICITUD), CUBE(deref(deref(deref(ls.SOLICITUD).Cliente).Pais).NOMBRE, deref(deref(ls.SOLICITUD).Cliente).NOMBRE) ORDER BY EXTRACT( year FROM deref(ls.SOLICITUD).FCHSOLICITUD)");
+                     
                  return listaConexiones.size() - 1;
              }
                  catch (NamingException e){
@@ -82,7 +91,7 @@ public class SessionEJB1Bean implements SessionEJB1, SessionEJB1Local {
                  return -1;
              }
          }
-            
+        
         @WebMethod
          public boolean closeConexion(int indice){
             try {
@@ -97,6 +106,7 @@ public class SessionEJB1Bean implements SessionEJB1, SessionEJB1Local {
         @WebMethod
          public boolean commit(int indice){
              try {
+                actualizaTablasAnidadas.executeUpdate();
                 listaConexiones.get(indice).commit();
                 return true;
              }
@@ -281,5 +291,58 @@ public class SessionEJB1Bean implements SessionEJB1, SessionEJB1Local {
            this.sessionContext = ctx;
         }
 
-         
+
+    @Override
+    public ArrayList<String> consulta1() {
+        ArrayList<String> consulta;
+        consulta = new ArrayList<String>();
+        try {
+            ResultSet rset;
+            rset = consultaQuery1.executeQuery();
+            while (rset.next()){
+                String lineaConsulta = Long.toString(rset.getLong("SOLICITUD") ) + "," +
+                                       Long.toString(rset.getLong("IDMATERIAPRIMA") ) + "," +
+                                       Long.toString(rset.getLong("UNIDADMEDIDA") ) +  "," +
+                                       Float.toString(rset.getFloat("CANTIDADFALTANTE") );
+                consulta.add( lineaConsulta );
+            };
+            rset.close();
+            return consulta;
+        }
+        catch (SQLException e) {
+            consulta.add(e.getMessage());
+           return consulta ;
+        }
+        catch (Exception e) {
+            consulta.add(e.getMessage());
+           return consulta ;
+        }
+    }
+
+    @Override
+    public ArrayList<String> consulta2() {
+        ArrayList<String> consulta;
+        consulta = new ArrayList<String>();
+        try {
+            ResultSet rset;
+            rset = consultaQuery2.executeQuery();
+            while (rset.next()){
+                String lineaConsulta = Integer.toString(rset.getInt("ANNO") ) + "," +
+                                       rset.getString("PAIS") + "," +
+                                       rset.getString("CLIENTE") +  "," +
+                                       Long.toString(rset.getLong("VENTA") );
+                consulta.add( lineaConsulta );
+            };
+            rset.close();
+            return consulta;
+        }
+        catch (SQLException e) {
+            consulta.add(e.getMessage());
+           return consulta ;
+        }
+        catch (Exception e) {
+            consulta.add(e.getMessage());
+           return consulta ;
+        }
+    }
 }
